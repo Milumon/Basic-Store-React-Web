@@ -1,0 +1,7 @@
+#main-header{
+    background-color: #eeeeee;
+}
+
+#main-header h1, #main-header p{
+    margin-bottom: 0;
+}
