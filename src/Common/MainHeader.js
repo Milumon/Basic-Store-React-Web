@@ -1,14 +1,13 @@
 import React from 'react';
 import './MainHeader.css';
-
 function MainHeader(props) {
     return (
-        <header id="main-header">
-          <div className="container">
-            <h1>Tienda ISIL</h1>
-            <p>Siempre productos de gran calidad</p>
-          </div>
-        </header>
+      <header id="main-header">
+        <div className="container">
+          <h1>Tienda UNI</h1>
+          <p>Siempre productos y ofertas nuevas</p>
+        </div>
+      </header>
     );
 }
 

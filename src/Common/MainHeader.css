@@ -1,8 +1,10 @@
 #main-header{
-    background-color: #eeeeee;
+    background-color: #dddddd;
+    text-align: center;
 }
-#main-header h1,
-#main-header p
-{
+#main-header h1{
+    margin-bottom: 0;
+}
+#main-header p{
     margin-bottom: 0;
 }

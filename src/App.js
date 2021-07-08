@@ -1,15 +1,19 @@
 import './App.css';
+import Envios from './Inicio/Envios';
 import MainBanner from './Inicio/MainBanner';
-import Historia from './Inicio/Historia';
-import Genios from './Components/Genios';
+import Mensaje from './Inicio/Mensaje';
+import Noticias from './Inicio/Noticias';
+import Oficinas from './Inicio/Oficinas';
 
 function App() {
   return (
-      <div>
-        <MainBanner />
-        <Historia/>
-        <Genios />
-      </div>
+    <div>
+      <MainBanner/>
+      <Mensaje/>
+      <Noticias/>
+      <Oficinas/>
+      <Envios/>
+    </div>
   );
 }
 

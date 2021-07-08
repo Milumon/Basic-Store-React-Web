@@ -2,69 +2,74 @@ import React, { Component } from 'react';
 import { ApiWebUrl } from '../utils';
 import Productos from './Productos';
 
-
 class Tienda extends Component {
-
     constructor(props){
         super(props)
         this.state = {
             listaCategorias: [],
-            categoriaSeleccionada: "",
-            ganadorSorteo: ""
+            categoriaSeleccionada: ""
         }
-    }  
-
-    componentDidMount(){ // Parecido al OnInit de Angular
-        const rutaServicio = ApiWebUrl + "serviciocategorias.php"
-        fetch(rutaServicio)
-            .then(res => res.json())
-            .then((result) => {
-                console.log(result); 
-                    this.setState({
-                        listaCategorias: result
-                    })
-                }
-            )
     }
+    componentDidMount(){
+        const rutaServicio =  ApiWebUrl + "serviciocategorias.php";
 
-    dibujarTabla(datosTabla){
-        return(
-            <ul className="list-group">
-                {datosTabla.map(itemCategoria =>
-                    <li className="list-group-item list-group-item-dark" key={itemCategoria.idcategoria} 
-                    onClick={() => this.seleccionarCategoria(itemCategoria)}>
-                        <h5 className="fw-bold">{itemCategoria.nombre}</h5> 
-                        <small>{itemCategoria.descripcion}</small>
-                    </li>
-                    )}
-            </ul>
+        fetch(rutaServicio)
+        .then(
+            res => res.json()
+            //Asi se indica que los valores que devuelve el servicio estarán en formato JSON
+        )
+        .then(
+            (result) => {
+                console.log(result);
+                //La variable result contiene los datos que envia el servicio web
+                this.setState({
+                    listaCategorias: result
+                })
+            }
         )
     }
 
+    dibujarCategorias(datosTabla){
+        return(
+            <ul className="list-group">
+                {datosTabla.map(itemCategoria =>
+                    <li className="list-group-item" key={itemCategoria.idcategoria}
+                        onClick={() => this.seleccionarCategoria(itemCategoria)}
+                        id={"li-categoria-" + itemCategoria.idcategoria}>
+                        <h5>{itemCategoria.nombre}</h5>
+                        <small>{itemCategoria.descripcion}</small>
+                    </li>
+                )}    
+            </ul>
+        )
+    }
     seleccionarCategoria(itemCategoria){
+        console.log(itemCategoria)
+        if(this.state.categoriaSeleccionada !== ""){    
+            document.getElementById("li-categoria-" + this.state.categoriaSeleccionada.idcategoria).classList.remove("active");
+        }
         this.setState({
             categoriaSeleccionada: itemCategoria
         })
+        document.getElementById("li-categoria-" + itemCategoria.idcategoria).classList.add("active");
     }
 
     render() {
-        let contenidoTabla = this.dibujarTabla(this.state.listaCategorias)
-        let dibujarComponenteProductos = <Productos categoriaProducto={this.state.categoriaSeleccionada} />
+        let contenidoCategorias = this.dibujarCategorias(this.state.listaCategorias)
+        let dibujarComponenteProductos = <Productos categoriaProducto={this.state.categoriaSeleccionada}/>
         return (
-            <section id="tienda" className="padded">
+                <section id="tienda" className="padded">
                 <div className="container">
                     <h2>Tienda</h2>
                     <div className="row">
                         <div className="col-md-3">
-                            {contenidoTabla}
-
-                        </div>
-                        <div className="col-md-9">                            
+                            {contenidoCategorias}
+                        </div>    
+                        <div className="col-md-9">
                             <h4>{this.state.categoriaSeleccionada.nombre}</h4>
-                            <h5>{this.state.categoriaSeleccionada.descripcion}</h5>
+                            <small>{this.state.categoriaSeleccionada.descripcion}</small>
                             {dibujarComponenteProductos}
-
-                        </div> 
+                        </div>                
                     </div>
                 </div>
             </section>
